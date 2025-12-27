@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="msvalidate.01" content="4A3F54712F39CA051D17E1973FB6A80A">
+    <title>果的个人主页</title>
+    
+    <style>
+        :root {
+            --primary-color: #64ffda;
+            --bg-color: #0a192f;
+            --card-bg: rgba(17, 34, 64, 0.8);
+            --text-primary: #e6f1ff;
+            --text-secondary: #8892b0;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            position: relative;
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                rgba(100,255,218,0.1) 0%, 
+                rgba(100,255,218,0.05) 50%, 
+                rgba(17,34,64,0.1) 100%);
+            z-index: -1;
+            animation: gradientRotate 20s linear infinite;
+        }
+
+        @keyframes gradientRotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .content {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            transform: translateY(0);
+            opacity: 1;
+            animation: contentEnter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes contentEnter {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            border: 2px solid var(--primary-color);
+            box-shadow: 0 0 20px rgba(100,255,218,0.3);
+            object-fit: cover;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            margin: 1.5rem 0;
+            font-weight: 700;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: var(--primary-color);
+            margin: 1rem auto;
+        }
+
+        .link-div {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(100,255,218,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(100,255,218,0.3);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .project-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            background: rgba(100,255,218,0.05);
+        }
+
+        .project-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            object-fit: cover;
+        }
+
+        .blog-container {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .blog-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .blog-card:hover {
+            transform: translateX(10px);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .page-btn {
+            padding: 0.8rem 1.5rem;
+            background: rgba(100,255,218,0.1);
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: var(--primary-color);
+            color: var(--bg-color);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-card {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="content">
+        <img class="logo" src="img1.png" alt="个人头像">
+        <h2>ReFruit</h2>
+        <p class="text-center" style="color: var(--text-secondary);">一个高中生，参加过好几次计算机考试或比赛，在初中时曾被学校好几次捉过去参加编程机器人比赛</p>
+        
+        <div class="link-div">
+            <a href="https://space.bilibili.com/3494376982448554" target="_blank" rel="noopener noreferrer" class="social-link">
+                <img src="https://www.bilibili.com/favicon.ico" alt="B站" style="width:24px;height:24px;">
+            </a>
+            <a href="https://github.com/fruit0730" target="_blank" rel="noopener noreferrer" class="social-link">
+                <img src="https://ts3.tc.mm.bing.net/th/id/ODF.bYAvaN8MCaSZfP0o7q_Z_w?w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2" alt="Github" style="width:24px;height:24px;">
+            </a>
+            <a href="https://gitee.com/pipa3288582557" target="_blank" rel="noopener noreferrer" class="social-link">
+                <img src="http://classfruit.cn/image/gitee.png" alt="Gitee" style="width:24px;height:24px;">
+            </a>
+        </div>
+
+        <h3>项目展示</h3>
+        <div class="project-grid">
+            <div class="project-card">
+                <img class="project-logo" src="image/toolbox.jpg" alt="R-工具箱">
+                <h4>R-工具箱</h4>
+                <p>多功能开发工具集合</p>
+                <a href="https://r-toolbox.rth1.xyz/" target="_blank" rel="noopener noreferrer" class="project-link">立即体验 →</a>
+            </div>
+            <!-- 重复其他项目卡片 -->
+            <div class="project-card">
+                <img class="project-logo" src="image/ReadLiner.png" alt="玩机">
+                <h4>ReeadLiner</h4>
+                <p>Python的一个可以读取自定义文件行数的模块</p>
+                <a href="https://github.com/fruit0730/ReadLiner" target="_blank" rel="noopener noreferrer" class="project-link">立即接入 →</a>
+            </div>
+            <div class="project-card">
+                <img class="project-logo" src="image/QIMG.png" alt="玩机">
+                <h4>QIMG</h4>
+                <p>一个简单易用的Python工具，用于获取和下载QQ用户的头像图片的API</p>
+                <a href="https://github.com/fruit0730/QIMG/tree/master" target="_blank" rel="noopener noreferrer" class="project-link">立即接入 →</a>
+            </div>
+
+
+        </div>
+
+        <h3>最新博客</h3>
+        <div class="blog-container">
+            <div class="blog-card">
+                <img src="PC_Bundle_Deluxe_Desktop.avif" alt="博客封面" style="width:100px;height:100px;border-radius:8px;">
+                <div>
+                    <h4>发客(FineKeeper)工作室资源站免责声明</h4>
+                    <p style="color: var(--text-secondary);">2025年4月12日 • 作者：RLG、ZJY</p>
+                    <a href="blog/FineKeeperDisclaimer.html" class="read-more">阅读全文 →</a>
+                </div>
+            </div>
+            <!-- 重复其他博客卡片 -->
+        </div>
+
+        <div class="pagination">
+            <button class="page-btn" onclick="prevPage()">← 上一页</button>
+            <span id="pageIndicator" style="color: var(--text-secondary); padding: 0 1rem;">1/3</span>
+            <button class="page-btn" onclick="nextPage()">下一页 →</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 动态内容加载
+    const projects = [
+        {name: "R-工具箱", desc: "多功能开发工具集合", logo: "image/toolbox.jpg", link: "https://r-toolbox.rth1.xyz/"},
+        // 其他项目数据
+    ];
+
+    const blogs = [
+        {title: "Hello, World!", date: "2024/4/6", cover: "PC_Bundle_Deluxe_Desktop.avif"},
+        // 其他博客数据
+    ];
+
+    // 分页逻辑优化
+    let currentPage = 1;
+    const itemsPerPage = 3;
+
+    function updatePagination() {
+        const totalPages = Math.ceil(blogs.length / itemsPerPage);
+        document.getElementById('pageIndicator').textContent = `${currentPage}/${totalPages}`;
+        // 动态更新显示内容
+    }
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', () => {
+        // 动态生成项目卡片和博客内容
+        updatePagination();
+    });
+
+    // 交互增强
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('mouseover', () => {
+            link.style.transform = 'translateX(5px)';
+        });
+        link.addEventListener('mouseout', () => {
+            link.style.transform = 'none';
+        });
+    });
+</script>
+</body>
+</html>

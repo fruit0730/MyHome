@@ -6,13 +6,23 @@
     <meta name="msvalidate.01" content="4A3F54712F39CA051D17E1973FB6A80A">
     <title>果的个人主页</title>
     
+    <!-- 预加载关键资源 -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" as="style">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- 内联关键CSS，避免阻塞渲染 -->
     <style>
         :root {
-            --primary-color: #64ffda;
-            --bg-color: #0a192f;
-            --card-bg: rgba(17, 34, 64, 0.8);
-            --text-primary: #e6f1ff;
-            --text-secondary: #8892b0;
+            --primary-color: #2563eb;
+            --primary-light: #60a5fa;
+            --bg-color: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-color: rgba(0, 0, 0, 0.05);
+            --accent-color: #3b82f6;
+            --hover-bg: #f1f5f9;
         }
 
         * {
@@ -37,6 +47,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f8fafc 100%);
         }
 
         .container::before {
@@ -46,26 +57,25 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, 
-                rgba(100,255,218,0.1) 0%, 
-                rgba(100,255,218,0.05) 50%, 
-                rgba(17,34,64,0.1) 100%);
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.05) 0%, rgba(255, 255, 255, 0) 70%);
             z-index: -1;
-            animation: gradientRotate 20s linear infinite;
+            animation: gradientMove 20s ease-in-out infinite alternate;
         }
 
-        @keyframes gradientRotate {
-            100% { transform: rotate(360deg); }
+        @keyframes gradientMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(10%, 10%); }
         }
 
         .content {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 2.5rem;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px var(--shadow-color);
+            border: 1px solid var(--border-color);
             transform: translateY(0);
             opacity: 1;
             animation: contentEnter 0.6s cubic-bezier(0.4, 0, 0.2, 1);
@@ -77,82 +87,148 @@
         }
 
         .logo {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
             margin: 0 auto 1.5rem;
-            border: 2px solid var(--primary-color);
-            box-shadow: 0 0 20px rgba(100,255,218,0.3);
+            border: 4px solid white;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
             object-fit: cover;
+            display: block;
         }
 
-        h1, h2, h3 {
-            text-align: center;
+        h1, h2, h3, h4 {
             margin: 1.5rem 0;
             font-weight: 700;
             position: relative;
+            color: var(--text-primary);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 0.5rem;
         }
 
         h2::after {
             content: '';
             display: block;
-            width: 60px;
-            height: 2px;
-            background: var(--primary-color);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
             margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        h3 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+            color: var(--text-primary);
+        }
+
+        .text-center {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
         }
 
         .link-div {
             display: flex;
             justify-content: center;
             gap: 1.5rem;
-            margin: 2rem 0;
+            margin: 2.5rem 0;
         }
 
         .social-link {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            background: rgba(100,255,218,0.1);
+            background: white;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
         }
 
         .social-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(100,255,218,0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.2);
+            background: var(--primary-color);
+        }
+
+        .social-link:hover img {
+            filter: brightness(0) invert(1);
         }
 
         .project-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin: 2rem 0;
         }
 
         .project-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            padding: 1.5rem;
+            background: white;
+            border-radius: 16px;
+            padding: 1.8rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            background: rgba(100,255,218,0.05);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(37, 99, 235, 0.15);
+            border-color: var(--primary-light);
         }
 
         .project-logo {
             width: 80px;
             height: 80px;
             border-radius: 16px;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+
+        .project-card h4 {
+            margin: 0.5rem 0;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+        }
+
+        .project-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            min-height: 3em;
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
         }
 
         .blog-container {
@@ -162,37 +238,96 @@
         }
 
         .blog-card {
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            padding: 1.5rem;
+            background: white;
+            border-radius: 16px;
+            padding: 1.8rem;
             display: flex;
             gap: 1.5rem;
             align-items: center;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
         }
 
         .blog-card:hover {
-            transform: translateX(10px);
+            transform: translateX(8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary-light);
+        }
+
+        .blog-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 1px solid var(--border-color);
+        }
+
+        .blog-card h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text-primary);
+        }
+
+        .blog-card p {
+            color: var(--text-secondary);
+            margin: 0 0 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .read-more:hover {
+            color: var(--primary-light);
+        }
+
+        .read-more::after {
+            content: '→';
+            margin-left: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .read-more:hover::after {
+            transform: translateX(5px);
         }
 
         .pagination {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 1rem;
-            margin-top: 2rem;
+            margin-top: 2.5rem;
         }
 
         .page-btn {
             padding: 0.8rem 1.5rem;
-            background: rgba(100,255,218,0.1);
-            border: 1px solid var(--primary-color);
-            border-radius: 8px;
-            color: var(--primary-color);
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            color: var(--text-primary);
             cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
         }
 
         .page-btn:hover:not(:disabled) {
             background: var(--primary-color);
-            color: var(--bg-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         @media (max-width: 768px) {
@@ -201,7 +336,8 @@
             }
             
             .content {
-                padding: 1.5rem;
+                padding: 1.8rem;
+                border-radius: 16px;
             }
             
             .project-grid {
@@ -210,111 +346,194 @@
             
             .blog-card {
                 flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            h2 {
+                font-size: 1.7rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
             }
         }
+
+        /* 自定义滚动条 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
     </style>
+    
+    <!-- 异步加载字体 -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    
+    <!-- 图片预加载 -->
+    <link rel="preload" as="image" href="img1.png">
+    <link rel="preload" as="image" href="image/toolbox.jpg">
+    <link rel="preload" as="image" href="image/ReadLiner.png">
+    <link rel="preload" as="image" href="image/QIMG.png">
 </head>
 <body>
 <div class="container">
     <div class="content">
-        <img class="logo" src="img1.png" alt="个人头像">
+        <!-- 懒加载头像图片 -->
+        <img class="logo" src="img1.png" alt="个人头像" loading="lazy">
         <h2>ReFruit</h2>
-        <p class="text-center" style="color: var(--text-secondary);">一个高中生，参加过好几次计算机考试或比赛，在初中时曾被学校好几次捉过去参加编程机器人比赛</p>
+        <p class="text-center">一个高中生，参加过好几次计算机考试或比赛，在初中时曾被学校好几次捉过去参加编程机器人比赛。热爱技术，喜欢探索编程的无限可能性。</p>
         
         <div class="link-div">
             <a href="https://space.bilibili.com/3494376982448554" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img src="https://www.bilibili.com/favicon.ico" alt="B站" style="width:24px;height:24px;">
+                <img src="https://www.bilibili.com/favicon.ico" alt="B站" style="width:24px;height:24px;" loading="lazy">
             </a>
             <a href="https://github.com/fruit0730" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img src="https://ts3.tc.mm.bing.net/th/id/ODF.bYAvaN8MCaSZfP0o7q_Z_w?w=32&h=32&qlt=90&pcl=fffffc&o=6&pid=1.2" alt="Github" style="width:24px;height:24px;">
+                <img src="https://github.githubassets.com/favicons/favicon-dark.png" alt="Github" style="width:24px;height:24px;" loading="lazy">
             </a>
             <a href="https://gitee.com/pipa3288582557" target="_blank" rel="noopener noreferrer" class="social-link">
-                <img src="http://classfruit.cn/image/gitee.png" alt="Gitee" style="width:24px;height:24px;">
+                <img src="https://gitee.com/favicon.ico" alt="Gitee" style="width:24px;height:24px;" loading="lazy">
             </a>
         </div>
 
         <h3>项目展示</h3>
         <div class="project-grid">
             <div class="project-card">
-                <img class="project-logo" src="image/toolbox.jpg" alt="R-工具箱">
+                <img class="project-logo" src="image/toolbox.jpg" alt="R-工具箱" loading="lazy">
                 <h4>R-工具箱</h4>
-                <p>多功能开发工具集合</p>
-                <a href="https://r-toolbox.rth1.xyz/" target="_blank" rel="noopener noreferrer" class="project-link">立即体验 →</a>
-            </div>
-            <!-- 重复其他项目卡片 -->
-            <div class="project-card">
-                <img class="project-logo" src="image/ReadLiner.png" alt="玩机">
-                <h4>ReeadLiner</h4>
-                <p>Python的一个可以读取自定义文件行数的模块</p>
-                <a href="https://github.com/fruit0730/ReadLiner" target="_blank" rel="noopener noreferrer" class="project-link">立即接入 →</a>
+                <p>多功能开发工具集合，提供日常开发中常用的工具和实用功能</p>
+                <a href="https://r-toolbox.rth1.xyz/" target="_blank" rel="noopener noreferrer" class="project-link">立即体验</a>
             </div>
             <div class="project-card">
-                <img class="project-logo" src="image/QIMG.png" alt="玩机">
+                <img class="project-logo" src="image/ReadLiner.png" alt="ReadLiner" loading="lazy">
+                <h4>ReadLiner</h4>
+                <p>Python模块，可以高效读取自定义文件行数，支持多种文件格式</p>
+                <a href="https://github.com/fruit0730/ReadLiner" target="_blank" rel="noopener noreferrer" class="project-link">立即接入</a>
+            </div>
+            <div class="project-card">
+                <img class="project-logo" src="image/QIMG.png" alt="QIMG" loading="lazy">
                 <h4>QIMG</h4>
-                <p>一个简单易用的Python工具，用于获取和下载QQ用户的头像图片的API</p>
-                <a href="https://github.com/fruit0730/QIMG/tree/master" target="_blank" rel="noopener noreferrer" class="project-link">立即接入 →</a>
+                <p>简单易用的Python工具，提供获取和下载QQ用户头像的API接口</p>
+                <a href="https://github.com/fruit0730/QIMG/tree/master" target="_blank" rel="noopener noreferrer" class="project-link">立即接入</a>
             </div>
-
-
         </div>
 
         <h3>最新博客</h3>
         <div class="blog-container">
             <div class="blog-card">
-                <img src="PC_Bundle_Deluxe_Desktop.avif" alt="博客封面" style="width:100px;height:100px;border-radius:8px;">
+                <img src="PC_Bundle_Deluxe_Desktop.avif" alt="博客封面" loading="lazy">
                 <div>
                     <h4>发客(FineKeeper)工作室资源站免责声明</h4>
-                    <p style="color: var(--text-secondary);">2025年4月12日 • 作者：RLG、ZJY</p>
-                    <a href="blog/FineKeeperDisclaimer.html" class="read-more">阅读全文 →</a>
+                    <p style="color: var(--text-secondary); margin-bottom: 0.8rem;">2025年4月12日 • 作者：RLG、ZJY</p>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">本文详细说明了发客工作室资源站的使用条款和免责声明，确保用户了解相关责任和义务。</p>
+                    <a href="blog/FineKeeperDisclaimer.html" class="read-more">阅读全文</a>
                 </div>
             </div>
-            <!-- 重复其他博客卡片 -->
+            <!-- 可以添加更多博客卡片 -->
         </div>
 
         <div class="pagination">
-            <button class="page-btn" onclick="prevPage()">← 上一页</button>
-            <span id="pageIndicator" style="color: var(--text-secondary); padding: 0 1rem;">1/3</span>
-            <button class="page-btn" onclick="nextPage()">下一页 →</button>
+            <button class="page-btn" onclick="prevPage()" id="prevBtn">← 上一页</button>
+            <span id="pageIndicator" style="color: var(--text-secondary); padding: 0 1rem; font-weight: 600;">1/3</span>
+            <button class="page-btn" onclick="nextPage()" id="nextBtn">下一页 →</button>
         </div>
     </div>
 </div>
 
+<!-- 将脚本放在 body 末尾，避免阻塞渲染 -->
 <script>
-    // 动态内容加载
-    const projects = [
-        {name: "R-工具箱", desc: "多功能开发工具集合", logo: "image/toolbox.jpg", link: "https://r-toolbox.rth1.xyz/"},
-        // 其他项目数据
-    ];
-
-    const blogs = [
-        {title: "Hello, World!", date: "2024/4/6", cover: "PC_Bundle_Deluxe_Desktop.avif"},
-        // 其他博客数据
-    ];
-
     // 分页逻辑优化
     let currentPage = 1;
     const itemsPerPage = 3;
+    const blogs = [
+        {title: "发客(FineKeeper)工作室资源站免责声明", date: "2025年4月12日", cover: "PC_Bundle_Deluxe_Desktop.avif", link: "blog/FineKeeperDisclaimer.html"},
+        // 可以添加更多博客数据
+    ];
 
     function updatePagination() {
-        const totalPages = Math.ceil(blogs.length / itemsPerPage);
+        const totalPages = Math.ceil(blogs.length / itemsPerPage) || 1;
         document.getElementById('pageIndicator').textContent = `${currentPage}/${totalPages}`;
-        // 动态更新显示内容
+        
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
     }
 
-    // 初始化
-    document.addEventListener('DOMContentLoaded', () => {
-        // 动态生成项目卡片和博客内容
-        updatePagination();
-    });
+    function prevPage() {
+        if (currentPage > 1) {
+            currentPage--;
+            updatePagination();
+        }
+    }
 
-    // 交互增强
-    document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('mouseover', () => {
-            link.style.transform = 'translateX(5px)';
+    function nextPage() {
+        const totalPages = Math.ceil(blogs.length / itemsPerPage) || 1;
+        if (currentPage < totalPages) {
+            currentPage++;
+            updatePagination();
+        }
+    }
+
+    // 初始化分页
+    document.addEventListener('DOMContentLoaded', () => {
+        updatePagination();
+        
+        // 延迟加载非关键交互
+        requestAnimationFrame(() => {
+            // 为卡片添加悬停效果
+            document.querySelectorAll('.project-card, .blog-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.zIndex = '10';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.zIndex = '1';
+                });
+            });
+            
+            // 为所有链接添加平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
-        link.addEventListener('mouseout', () => {
-            link.style.transform = 'none';
-        });
+    });
+    
+    // 动态更新页面访问时间
+    window.addEventListener('load', () => {
+        const now = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const timeElement = document.createElement('div');
+        timeElement.style.cssText = 'text-align: center; color: var(--text-secondary); margin-top: 1.5rem; font-size: 0.9rem;';
+        timeElement.textContent = `页面最后更新时间: ${now.toLocaleDateString('zh-CN', options)}`;
+        document.querySelector('.content').appendChild(timeElement);
     });
 </script>
 </body>
